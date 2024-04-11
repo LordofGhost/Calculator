@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+}
+
+#keypad {
+    display: flex;
+    flex-direction: column;
+}
+
+.keypad-row {
+
+}

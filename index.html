@@ -9,37 +9,46 @@
     <title>Calculator</title>
 </head>
 <body>
-    <div></div>
-    <div id="keypad">
-        <div class="keypad-row">
-            <button id="buttonClear">Clear</button>
-            <button></button>
-            <button></button>
-            <button id="buttonDivide">/</button>
+    <div id="calculator">
+        <div id="display">
+            <div id="lastCalc"></div>
+            <div id="result"></div>
         </div>
-        <div class="keypad-row">
-            <button id="button7">7</button>
-            <button id="button8">8</button>
-            <button id="button9">9</button>
-            <button id="buttonMultiply">*</button>
-        </div>
-        <div class="keypad-row">
-            <button id="button4">4</button>
-            <button id="button5">5</button>
-            <button id="button6">6</button>
-            <button id="buttonSubtract">-</button>
-        </div>
-        <div class="keypad-row">
-            <button id="button1">1</button>
-            <button id="button2">2</button>
-            <button id="button3">3</button>
-            <button id="buttonAdd">+</button>
-        </div>
-        <div class="keypad-row">
-            <button id="button0">0</button>
-            <button></button>
-            <button></button>
-            <button id="buttonEqual">=</button>
+        <div id="keypad">
+            <div class="keypad-col">
+                <button id=""></button>
+                <button id="button8">7</button>
+                <button id="button4">4</button>
+                <button id="button1">1</button>
+                <button id="button0">0</button>
+            </div>
+            <div class="keypad-col">
+                <button id=""></button>
+                <button id="button8">8</button>
+                <button id="button5">5</button>
+                <button id="button2">2</button>
+                <button id="dot">.</button>
+            </div>
+            <div class="keypad-col">
+                <button id=""></button>
+                <button id="button9">9</button>
+                <button id="button6">6</button>
+                <button id="button3">3</button>
+                <button id="positivNegativ">+/-</button>
+            </div>
+            <div class="keypad-col">
+                <button id="backspace">Backspace</button>
+                <button id="toThePower">^</button>
+                <button id="buttonMultiply">*</button>
+                <button id="buttonAdd">+</button>
+            </div>
+            <div class="keypad-col">
+                <button id="buttonClear">Clear</button>
+                <button id="diwRoot">√</button>
+                <button id="buttonDivide">/</button>
+                <button id="buttonSubtract">-</button>
+                <button id="buttonEqual">=</button>
+            </div>
         </div>
     </div>
 </body>

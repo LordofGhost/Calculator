@@ -4,9 +4,10 @@ body {
 
 #keypad {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
-.keypad-row {
-
+.keypad-col {
+    display: flex;
+    flex-direction: column;
 }

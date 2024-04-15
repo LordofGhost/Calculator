@@ -14,8 +14,8 @@ numberButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (operant != '') { // before a second operator can be added to the calculation the last one mus be calculated
-
+        if (operant != '' || operant == '=') { // before a second operator can be added to the calculation the last one mus be calculated
+            calculate(+lastNumber, +currentNumber, operant);
         } else {
             // make space for the second number
             lastNumber = currentNumber;
@@ -32,8 +32,12 @@ modeButtons.forEach(button => {
     button.addEventListener('click', () => {
         switch (button.id) {
             case 'buttonClear':
+                currentNumber = '', lastNumber = '', operant = '';
+                displayOnScreen('number', currentNumber);
                 break;
             case 'backspace':
+                    currentNumber = currentNumber.slice(0, -1);
+                    displayOnScreen('number', currentNumber);
                 break;
         }
     });
@@ -41,32 +45,30 @@ modeButtons.forEach(button => {
 
 const negativPositiv = document.querySelector('#negativPositiv');
 negativPositiv.addEventListener('click', () => {
+    // makes a positiv a number negativ and other way around 
     currentNumber *= -1;
     displayOnScreen('number', currentNumber);
 });
 
-
-
-// goes through the input and analyze it, decides how to react on it
-function calculate (val1, val2, operant) {
+function calculate (num1, num2, operant) {
     switch (operant) {
         case '+':
-            displayOnScreen('result', val1 + val2);
+            displayOnScreen('result', num1 + num2);
             break;
         case '-':
-            displayOnScreen('result', val1 - val2);
+            displayOnScreen('result', num1 - num2);
             break;
         case 'x':
-            displayOnScreen('result', val1 * val2);
+            displayOnScreen('result', num1 * num2);
             break;
         case '/':
-            displayOnScreen('result', val1 / val2);
+            displayOnScreen('result', num1 / num2);
             break;
         case '√':
-            displayOnScreen('result', Math.sqrt(val1));
+            displayOnScreen('result', Math.sqrt(num1));
             break;
         case '^':
-            displayOnScreen('result', val1 ** val2);
+            displayOnScreen('result', num1 ** num2);
             break;
     }
 }
@@ -75,17 +77,16 @@ function calculate (val1, val2, operant) {
 function displayOnScreen(type, content) {
     const lastCalc = document.querySelector('#lastCalc')
     const result = document.querySelector('#result')
-    if (type == 'number') { // adds a number to calculation
+    if (type == 'number') { 
         result.textContent = content;
-    } else if (type == 'result') { // prints the result and shifts the calculation to the top
-        // lastCalc.textContent = result.textContent;
-        result.textContent = content.toFixed(2);
-    } else if (type == 'clear') { // clears the display
+    } else if (type == 'result') {
+        result.textContent = content;
+        // makes it possible work with the result in next culculation
+        lastNumber = content;
+        currentNumber = '';
+    } else if (type == 'clear') { 
+        // clears the display
         lastCalc.textContent = '0';
         result.textContent = '0';
     }
-}
-
-function reset() {
-
 }

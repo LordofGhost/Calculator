@@ -1,5 +1,22 @@
 body {
+    height: 100vh;
     margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #242424;
+}
+
+#calculator {
+    border: solid red 1px;
+}
+
+#display {
+    margin: 20px;
+    padding: 10px;
+    height: 30px;
+    border: solid grey 1px;
+    text-align: end;
 }
 
 #keypad {

@@ -2,6 +2,4 @@
 
 Icons: flaction.com
 
-Pseudo Code:
-
-Logic based on before or after operator
+Isues: - number is passed even if you use '=' - the result should be rounded

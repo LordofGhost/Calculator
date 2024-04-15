@@ -1,6 +1,6 @@
 let currentNumber = '', lastNumber = '', operant = '';
 
-// select all input buttons for numbers
+// handeling number inputs
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
@@ -14,7 +14,14 @@ numberButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (operant != '' || operant == '=') { // before a second operator can be added to the calculation the last one mus be calculated
+        // before a second operator can be added to the calculation the last one mus be calculated
+        if (operant != '' || operant == '=') { 
+            if (currentNumber == '') currentNumber = lastNumber;
+            calculate(+lastNumber, +currentNumber, operant);
+        // when useing the quare root it doesn't requiere a second value
+        } else if (button.id == 'squareRoot') {
+            operant = button.textContent;
+            displayOnScreen('displayTop', operant);
             calculate(+lastNumber, +currentNumber, operant);
         } else {
             // make space for the second number
@@ -22,22 +29,28 @@ operatorButtons.forEach(button => {
             currentNumber = '';
             // store the oprator
             operant = button.textContent;
+            displayOnScreen('displayTop', `${lastNumber} ${operant}`)
         }   
     });
 });
 
-// select all input buttons for modefier
+// modefier buttons
 const modeButtons = document.querySelectorAll('.mode');
 modeButtons.forEach(button => {
     button.addEventListener('click', () => {
         switch (button.id) {
             case 'buttonClear':
                 currentNumber = '', lastNumber = '', operant = '';
-                displayOnScreen('number', currentNumber);
+                displayOnScreen('number', '0');
+                displayOnScreen('displayTop', '');
                 break;
             case 'backspace':
                     currentNumber = currentNumber.slice(0, -1);
-                    displayOnScreen('number', currentNumber);
+                    if (currentNumber == '') {
+                        displayOnScreen('number', '0');
+                    } else {
+                        displayOnScreen('number', currentNumber);
+                    }
                 break;
         }
     });
@@ -65,7 +78,9 @@ function calculate (num1, num2, operant) {
             displayOnScreen('result', num1 / num2);
             break;
         case '√':
-            displayOnScreen('result', Math.sqrt(num1));
+            // using the second number because only one is requierd and that 
+            // one becomes the second number when pressing the operator
+            displayOnScreen('result', Math.sqrt(num2));
             break;
         case '^':
             displayOnScreen('result', num1 ** num2);
@@ -81,12 +96,11 @@ function displayOnScreen(type, content) {
         result.textContent = content;
     } else if (type == 'result') {
         result.textContent = content;
+        lastCalc.textContent += ` ${currentNumber} =`;
         // makes it possible work with the result in next culculation
         lastNumber = content;
         currentNumber = '';
-    } else if (type == 'clear') { 
-        // clears the display
-        lastCalc.textContent = '0';
-        result.textContent = '0';
+    } else if (type == 'displayTop') {
+        lastCalc.textContent = content;
     }
 }

@@ -2,13 +2,13 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initöial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Glegoo:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="icon" href="./icons/calculator-32px.png">
+    <link rel="icon" href="./icons/calculator.png">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
     <title>Calculator</title>
@@ -16,20 +16,20 @@
 <body>
     <div id="calculator">
         <div id="display">
-            <div id="lastCalc"></div>
+            <div id="lastCalc">#</div>
             <div id="result">0</div>
         </div>
         <div id="keypad">
             <div class="keypad-row">
                 <div class="cleardiv"><button id="buttonClear" class="mode">C</button></div>
                 <div class="operantdiv"><button id="squareRoot" class="operator">√</button></div>
-                <div class="operantdiv"><button id="buttonDivide" class="operator">/</button></div>
-                <div class="operantdiv"><button id="buttonSubtract" class="operator">-</button></div>
+                <div class="operantdiv"><button id="toThePower" class="operator">^</button></div>
+                <div class="cleardiv"><button id="backspace" class="mode">⌫</button></div>
             </div>
             <div class="keypad-row">
-                <div class="operantdiv"><button id="backspace" class="mode">⌫</button></div>
-                <div class="operantdiv"><button id="toThePower" class="operator">^</button></div>
+                <div class="operantdiv"><button id="buttonDivide" class="operator">/</button></div>
                 <div class="operantdiv"><button id="buttonMultiply" class="operator">x</button></div>
+                <div class="operantdiv"><button id="buttonSubtract" class="operator">-</button></div>
                 <div class="operantdiv"><button id="buttonAdd" class="operator">+</button></div>
             </div>
             <div class="keypad-row">
@@ -48,8 +48,8 @@
             </div>
             <div class="keypad-row">
                 <div class="equaldiv"><button id="buttonEqual" class="operator">=</button></div>
-                <div class="numberdiv"><button id="negativPositiv">+/-</button></div>
                 <div class="numberdiv"><button id="dot" class="number">.</button></div>
+                <div class="numberdiv"><button id="negativPositiv">+/-</button></div>
             </div>
         </div>
     </div>

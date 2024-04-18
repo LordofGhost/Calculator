@@ -19,13 +19,8 @@
     user-select: None;
 }
 
-html {
-    height: -webkit-fill-available;
-}
-
 body {
     height: 100vh;
-    min-height: -webkit-fill-available;
     margin: 0;
     display: flex;
     align-items: center;
@@ -48,6 +43,18 @@ body {
     box-shadow:  50px 50px 98px #919191,
                 -50px -50px 98px #ffffff;
 }
+
+@media only screen and (max-width: 1200px) {
+    html, body {margin: 0; height: 100%; overflow: hidden}
+    #calculator {
+        min-height: 70vh;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        box-shadow:  50px 50px 98px #919191,
+                    -50px -50px 98px #ffffff;
+    }
+  }
 
 /* Display */
 

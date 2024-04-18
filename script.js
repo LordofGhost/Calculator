@@ -14,6 +14,7 @@ numberButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
+        button.classList.add("selected");
         // before a second operator can be added to the calculation the last one mus be calculated
         if (operant != '' || operant == '=') { 
             if (currentNumber == '') currentNumber = lastNumber;
@@ -25,8 +26,10 @@ operatorButtons.forEach(button => {
             calculate(+lastNumber, +currentNumber, operant);
         } else {
             // make space for the second number
-            lastNumber = currentNumber;
-            currentNumber = '';
+            if (lastNumber == '') {
+                lastNumber = currentNumber;  
+                currentNumber = '';
+            } 
             // store the oprator
             operant = button.textContent;
             displayOnScreen('displayTop', `${lastNumber} ${operant}`)
@@ -95,12 +98,20 @@ function displayOnScreen(type, content) {
     if (type == 'number') { 
         result.textContent = content;
     } else if (type == 'result') {
-        result.textContent = content;
+        result.textContent = Math.round(content * 100) / 100;
         lastCalc.textContent += ` ${currentNumber} =`;
         // makes it possible work with the result in next culculation
         lastNumber = content;
         currentNumber = '';
+        operant = '';
     } else if (type == 'displayTop') {
         lastCalc.textContent = content;
+    }
+}
+
+function selectedButton (button) {
+    switch (button) {
+        case '':
+            break;
     }
 }

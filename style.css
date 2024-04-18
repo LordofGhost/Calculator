@@ -11,6 +11,14 @@
     --font-size-display-small: 2rem;
 }
 
+/* no marking */
+* {
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
+    user-select: None;
+}
+
 body {
     height: 100vh;
     margin: 0;
@@ -39,7 +47,8 @@ body {
 /* Display */
 
 #display {
-    flex: 1 1 0;
+    flex: 1 1 auto;
+    max-height: 200px;
     text-align: end;
     margin: 10px 30px;
     color: white;
@@ -123,6 +132,11 @@ div.operantdiv, div.operantdiv > button {
     color: white;
 }
 
+div.operantdiv > button.selected {
+    box-shadow: inset 7px 7px 7px -1px #767674,
+                inset -7px -7px 7px 1px #8a8a88;
+}
+
 /* Buttons - Equal */
 
 div.equaldiv > button {
@@ -161,4 +175,8 @@ div.cleardiv > button:active {
 
 div.cleardiv {
     background-color: var(--light);
+}
+
+#backspace:active {
+    font-size: var(--font-size-numpad);
 }

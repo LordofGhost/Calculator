@@ -1,21 +1,12 @@
 let debug = true;
 let currentNumber = '', lastNumber = '', operant = '';
+window.addEventListener('keydown', handleKeyboardInput)
 
 // handeling number inputs
 const numberButtons = document.querySelectorAll('.number');
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // reset on number before operator after last calculation
-        if (operant == '=') clear();
-
-        // add number to string
-        if (currentNumber == '' && button.textContent == '.') {
-            currentNumber = '0.';
-        } else {
-            currentNumber += button.textContent;
-        }
-        displayOnScreen('number', currentNumber);
-        if (debug) console.log(`${lastNumber} . ${operant} . ${currentNumber}`);
+        handleNumber(button.textContent);
     });
 });
 
@@ -23,51 +14,72 @@ numberButtons.forEach(button => {
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        // emphasises the selected operant 
-        operatorButtons.forEach( operantButton => operantButton.classList.remove("selected"))
-        if (operant != '=') button.classList.add("selected");
-
-        // before a second operator can be added to the calculation the last one mus be calculated
-        if (operant && currentNumber) { 
-            if (debug) console.log("calculate")
-            if (currentNumber == '') currentNumber = lastNumber;
-            calculate(+lastNumber, +currentNumber, operant);     
-            operant = button.textContent;   
-        // when useing the quare root it doesn't requiere a second value
-        } else if (button.id == 'squareRoot') {
-            operant = '√';
-            displayOnScreen('displayTop', operant);
-            calculate(+lastNumber, +currentNumber, operant);
-        } else {
-            // make space for the second number
-            if (lastNumber == '') {
-                lastNumber = currentNumber;  
-                currentNumber = '';
-            } 
-            // store the oprator
-            operant = button.textContent;   
-            displayOnScreen('displayTop', `${lastNumber} ${operant}`)
-        }   
-        if (operant != '=') displayOnScreen('displayTop', `${lastNumber} ${operant}`)
-        if (debug) console.log(`${lastNumber} . ${operant} . ${currentNumber}`);
+        handleOperator(button.textContent, button.id, button);
     });
 });
 
-// modefier buttons
 const modeButtons = document.querySelectorAll('.mode');
 modeButtons.forEach(button => {
     button.addEventListener('click', () => {
-        switch (button.id) {
-            case 'buttonClear':
-                clear();
-                break;
-            case 'backspace':
-                currentNumber = currentNumber.slice(0, -1);
-                displayOnScreen('number', currentNumber);
-                break;
-        }
+        handleModeButtons(button.id);
     });
 });
+
+function handleNumber (input) {
+    // reset on number before operator after last calculation
+    if (operant == '=') clear();
+
+    // add number to string
+    if (currentNumber == '' && input == '.') {
+        currentNumber = '0.';
+    } else {
+        currentNumber += input;
+    }
+    displayOnScreen('number', currentNumber);
+    if (debug) console.log(`${lastNumber} . ${operant} . ${currentNumber}`);
+}
+
+function handleOperator (input, id, button) {
+    // emphasises the selected operant 
+    operatorButtons.forEach( operantButton => operantButton.classList.remove("selected"))
+    if (operant != '=' && button) button.classList.add("selected");
+
+    // before a second operator can be added to the calculation the last one mus be calculated
+    if (operant && currentNumber) { 
+        if (debug) console.log("calculate")
+        if (currentNumber == '') currentNumber = lastNumber;
+        calculate(+lastNumber, +currentNumber, operant);     
+        operant = input;   
+    // when useing the quare root it doesn't requiere a second value
+    } else if (id == 'squareRoot') {
+        operant = '√';
+        displayOnScreen('displayTop', operant);
+        calculate(+lastNumber, +currentNumber, operant);
+    } else {
+        // make space for the second number
+        if (lastNumber == '') {
+            lastNumber = currentNumber;  
+            currentNumber = '';
+        } 
+        // store the oprator
+        operant = input;   
+        displayOnScreen('displayTop', `${lastNumber} ${operant}`)
+    }   
+    if (operant != '=') displayOnScreen('displayTop', `${lastNumber} ${operant}`)
+    if (debug) console.log(`${lastNumber} . ${operant} . ${currentNumber}`);
+}
+
+function handleModeButtons (input) {
+    switch (input) {
+        case 'buttonClear':
+            clear();
+            break;
+        case 'backspace':
+            currentNumber = currentNumber.slice(0, -1);
+            displayOnScreen('number', currentNumber);
+            break;
+    }
+}
 
 const negativPositiv = document.querySelector('#negativPositiv');
 negativPositiv.addEventListener('click', () => {
@@ -81,6 +93,16 @@ function clear () {
     displayOnScreen('number', currentNumber);
     displayOnScreen('displayTop', '');
     operatorButtons.forEach( operantButton => operantButton.classList.remove("selected"))
+}
+
+// keyboard support
+function handleKeyboardInput (input) {
+    if (input.key >= 0 && input.key <= 9) handleNumber(input.key)
+    if (input.key == ',') handleNumber('.');
+    if (input.key == '+' || input.key == '-' || input.key == '*' || input.key == '/') handleOperator(input.key);
+    if (input.key == 'Enter') handleOperator('=');
+    if (input.key == 'Backspace') handleModeButtons('backspace');
+    if (input.key == 'Escape') handleModeButtons('buttonClear');
 }
 
 function calculate (num1, num2, operant) {

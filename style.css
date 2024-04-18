@@ -19,8 +19,13 @@
     user-select: None;
 }
 
+html {
+    height: -webkit-fill-available;
+}
+
 body {
     height: 100vh;
+    min-height: -webkit-fill-available;
     margin: 0;
     display: flex;
     align-items: center;
@@ -74,20 +79,20 @@ body {
 }
 
 .keypad-row {
-    flex: 1;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: row;
 }
 
 .keypad-row > div {
-    flex: 1;
+    flex: 1 1 auto;
     border-radius: 8px;
     margin: 2.5px;
     display: flex;
 }
 
 .keypad-row > div > button {
-    flex: 1;
+    flex: 1 1 auto;
     margin: 20px;
     border-radius: 100px;
     border: none;

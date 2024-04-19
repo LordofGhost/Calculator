@@ -122,7 +122,11 @@ function calculate (num1, num2, operant) {
         case '√':
             // using the second number because only one is requierd and that 
             // one becomes the second number when pressing the operator
-            displayOnScreen('result', Math.sqrt(num2));
+            if (num2) {
+                displayOnScreen('result', Math.sqrt(num2));
+            } else {
+                displayOnScreen('result', Math.sqrt(num1));
+            }
             break;
         case '^':
             displayOnScreen('result', num1 ** num2);

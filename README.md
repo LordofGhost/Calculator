@@ -1,5 +1,7 @@
 # Calculator
 
+![Calculator](./calculator.png)
+
 This is a calculator in neumorphism style which I created as a task for the Odin project.
 
 Preview: https://lordofghost.github.io/Calculator/
